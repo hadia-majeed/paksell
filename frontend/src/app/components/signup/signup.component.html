@@ -1,0 +1,54 @@
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Sign Up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="Name"[(ngModel)]="signupData.name" class="form-control" id="Name" placeholder="Enter your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email"[(ngModel)]="signupData.email" class="form-control" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password"[(ngModel)]="signupData.password" class="form-control" id="password" placeholder="Enter your password">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="LoginID" class="form-label">Login ID</label>
+                        <input type="LoginID"[(ngModel)]="signupData.loginId" class="form-control" id="LoginID" placeholder="Enter your Login ID">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="Phone" class="form-label">Phone</label>
+                        <input type="Phone"[(ngModel)]="signupData.phoneNumber" class="form-control" id="Phone" placeholder="Enter your Phone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="SecurityQuestion" class="form-label">Security Question</label>
+                        <input type="SecurityQuestion"[(ngModel)]="signupData.securityQuestion" class="form-control" id="SecurityQuestion" placeholder="Enter your Security Question">
+                    </div>
+                    <div class="mb-3">
+                        <label for="SecurityAnswer" class="form-label">Security Answer</label>
+                        <input type="SecurityAnswer"[(ngModel)]="signupData.securityAnswer" class="form-control" id="SecurityAnswer" placeholder="Enter your Security Answer">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Birth Date" class="form-label">Birth Date</label>
+                        <input type="date"[(ngModel)]="signupData.birthDate" class="form-control" id="date" placeholder="Enter your Birth Date">
+                    </div>
+                    <div class="mb-3">
+                        <label for="yourImage" class="form-label">Your Image</label>
+                        <input type="file"[(ngModel)]="signupData.userImage" class="form-control" id="yourImage" accept="image/*">
+                    </div>
+
+                    <button type="button" (click)="signUp()"class="btn btn-success w-100" data-bs-dismiss="modal">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

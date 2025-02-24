@@ -1,0 +1,86 @@
+<!-- <div class="container">
+   <br> <h1 class="text-center text-success"><strong>Latest Posting</strong></h1><br>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card">
+        <img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text"><strong>Price: ${{product.price}}</strong></p>
+          <p class="card-text">{{product.description}}</p>
+          <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div *ngIf="!selectedCategory">
+<div class="container">
+  <br> <h1 class="text-center text-success"><strong>Explore By Categories</strong></h1><br>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card" style=" width: 430px;">
+        <img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}" style="height: 228px; width: 430px;">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.advertisementCount}} Cars</p>
+          <button href="#"(click)="onCategorySelected(product)" class="btn btn-primary">View Cars</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="container">
+  <div *ngIf="selectedCategory">
+    <br>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-success"><strong>{{selectedCategory.name}} Cars</strong></h1>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let ad of advertisements">
+          <img [src]="ad.imageUrl" class="card-img-top" alt="{{ad.title}}" 
+               style="height: 228px; width: 100%; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{ad.title}}</h5>
+            <p class="card-text"><strong>Price: ${{ad.price}}</strong></p>
+            <p class="card-text">{{ad.description}}</p>
+            <button href="#" (click)="onAdvertisementSelected(ad)" class="btn btn-primary">More Details</button>  
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div *ngIf="selectedAdvertisement">
+    <br>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-success"><strong>{{selectedAdvertisement.name}} Cars</strong></h1>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+          <img [src]="selectedAdvertisement.imageUrl" class="card-img-top" alt="{{selectedAdvertisement.title}}" 
+               style="height: 228px; width: 100%; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{selectedAdvertisement.title}}</h5>
+            <p class="card-text"><strong>Price: ${{selectedAdvertisement.price}}</strong></p>
+            <p class="card-text">{{selectedAdvertisement.AdvertisementFeatures}}</p>
+            <p class="card-text">{{selectedAdvertisement.description}}</p>
+            <p class="card-text">{{selectedAdvertisement.startsOn}}</p>
+            <p class="card-text">{{selectedAdvertisement.postedBy}}</p>
+            <p class="card-text">{{selectedAdvertisement.cityArea}}</p>
+            <p class="card-text">{{selectedAdvertisement.phoneNumber }}</p>
+            <p class="card-text">{{selectedAdvertisement.email}}</p>
+            <p class="card-text">{{selectedAdvertisement.endsOn}}</p>  
+            <p class="card-text">{{selectedAdvertisement.advertisementImages}}</p>            
+          
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

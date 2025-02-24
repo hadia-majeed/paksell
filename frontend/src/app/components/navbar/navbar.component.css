@@ -1,0 +1,23 @@
+.navbar-brand img{
+    padding-right: 1px;
+    
+}
+.navbar-nav{
+    padding-left: 800px;
+}
+.nav-item :hover{
+    
+    background-color: #f8f9fa;
+    -webkit-text-fill-color: #000000;
+    
+  
+}
+.nav-item post-button {
+    background-color: success;
+    
+}
+.nav-item{
+    padding-right: 10px;
+    font-size: x-large;
+    
+}

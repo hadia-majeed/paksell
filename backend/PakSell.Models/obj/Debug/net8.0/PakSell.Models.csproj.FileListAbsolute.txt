@@ -1,0 +1,15 @@
+C:\Users\maahi\source\repos\paksell\PakSell.Models\bin\Debug\net8.0\PakSell.Models.deps.json
+C:\Users\maahi\source\repos\paksell\PakSell.Models\bin\Debug\net8.0\PakSell.Models.dll
+C:\Users\maahi\source\repos\paksell\PakSell.Models\bin\Debug\net8.0\PakSell.Models.pdb
+C:\Users\maahi\source\repos\paksell\PakSell.Models\bin\Debug\net8.0\paksell.Db.dll
+C:\Users\maahi\source\repos\paksell\PakSell.Models\bin\Debug\net8.0\paksell.Db.pdb
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.csproj.AssemblyReference.cache
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.AssemblyInfoInputs.cache
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.AssemblyInfo.cs
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.csproj.CoreCompileInputs.cache
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell..53621F64.Up2Date
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.dll
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\refint\PakSell.Models.dll
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\PakSell.Models.pdb
+C:\Users\maahi\source\repos\paksell\PakSell.Models\obj\Debug\net8.0\ref\PakSell.Models.dll

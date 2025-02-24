@@ -1,0 +1,27 @@
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgb(49, 49, 49);
+    border-radius: 50%;
+    padding: 20px;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%;
+    background-color: transparent;
+}
+
+.carousel-caption{
+    padding-right: 800px;
+    padding-bottom: 300px;
+   
+}
+.carousel-caption p{
+   font-size: large;
+   
+}
+
+.carousel-caption button {
+    margin-right: 20px;
+    font-size: larger;
+    
+   
+}

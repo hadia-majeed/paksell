@@ -1,0 +1,23 @@
+.search-bar input{
+    margin-right: 150px;
+    width: 250px;
+    border-radius: 10px;
+}
+
+.search-bar select{
+    margin-right: 150px;
+    width: 250px;
+    border-radius: 10px;
+}
+
+.search-bar button{
+    margin-left: 100px;
+    width: 300px;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: bold;
+    
+}
+.dropdown  :hover{
+    background-color: rgb(38, 112, 38);
+}

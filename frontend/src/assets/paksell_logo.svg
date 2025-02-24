@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <!-- Wheel Icon -->
+  <g transform="translate(20, 20)">
+    <circle cx="30" cy="30" r="28" fill="#38B2AC" />
+    <!-- Spokes -->
+    <path d="M30,30 L30,10 M30,30 L47,19 M30,30 L47,41 M30,30 L30,50 M30,30 L13,41 M30,30 L13,19" 
+          stroke="white" 
+          stroke-width="6" 
+          stroke-linecap="round"/>
+    <!-- Center dot -->
+    <circle cx="30" cy="30" r="4" fill="white"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="100" y="60" 
+        font-family="Arial, sans-serif" 
+        font-size="48" 
+        font-weight="bold" 
+        fill="#38B2AC">
+    paksell
+  </text>
+</svg>

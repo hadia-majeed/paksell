@@ -1,0 +1,6 @@
+@PakSell.RestApis_HostAddress = http://localhost:5113
+
+GET {{PakSell.RestApis_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
