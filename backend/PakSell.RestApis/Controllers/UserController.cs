@@ -65,21 +65,34 @@ namespace PakSell.RestApis.Controllers
         {
             try
             {
-                if (model==null || string.IsNullOrEmpty(model.LoginId) || string.IsNullOrEmpty(model.Password))
+                if (model == null || string.IsNullOrEmpty(model.LoginId) || string.IsNullOrEmpty(model.Password))
                 {
-                    return BadRequest("invalid Input Data");
+                    return BadRequest("Invalid Input Data.");
                 }
+
+                // Log base64 image size before storing
+                if (!string.IsNullOrEmpty(model.UserImage))
+                {
+                    Console.WriteLine($"Received Base64 image length: {model.UserImage.Length}");
+
+                    // Limit image size (e.g., ~2MB in Base64 is ~2.7 million characters)
+                    if (model.UserImage.Length > 2700000)
+                    {
+                        return BadRequest("Image is too large. Please upload an image smaller than 2MB.");
+                    }
+                }
+
                 UserHandler userHandler = new UserHandler();
-                User existingUser = userHandler.GetUser(model.Id);
+                User existingUser = userHandler.GetUser(model.LoginId);
                 if (existingUser != null)
                 {
                     return BadRequest("User already exists with this login ID.");
                 }
+
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
                 User newUser = new User
                 {
-                    Id = model.Id,
                     Password = hashedPassword,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
@@ -87,19 +100,41 @@ namespace PakSell.RestApis.Controllers
                     SecurityQuestion = model.SecurityQuestion,
                     City = model.City,
                     BirthDate = model.BirthDate,
-                    UserImage = model.UserImage,
+                    UserImage = model.UserImage, // Base64 stored (consider cloud storage instead)
                     Name = model.Name,
                     LoginId = model.LoginId,
                 };
-                userHandler.AddUser(newUser).ToModel();
-                return Ok("User registered successfully.");
+
+                userHandler.AddUser(newUser);
+
+                return Ok(new
+                {
+                    message = "User registered successfully.",
+                    user = new
+                    {
+                        newUser.Name,
+                        newUser.Email,
+                        newUser.LoginId,
+                        newUser.City,
+                        newUser.PhoneNumber,
+                        newUser.UserImage,
+                        newUser.BirthDate,
+                        newUser.SecurityQuestion,
+                        newUser.SecurityAnswer
+                    }
+                });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                Console.WriteLine($"Error in SignUp: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                return StatusCode(500, "Internal Server Error.");
             }
-
         }
+
         private string IssueToken(User user)
         {
             string jwtKey = _configuration["Jwt:Key"];

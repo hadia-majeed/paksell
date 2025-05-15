@@ -10,7 +10,7 @@ namespace PakSell.Models
 {
     public class UserModel : INameEntity
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string? Email { get; set; }
         public string LoginId { get; set; }
@@ -21,7 +21,6 @@ namespace PakSell.Models
         public string? UserImage { get; set; }
 
         public DateTime? BirthDate { get; set; }
-        public List<AdvertisementModel> Advertisements { get; set; }
         public string? SecurityQuestion { get; set; }
         public string? SecurityAnswer { get; set; }
     }

@@ -61,11 +61,37 @@ namespace paksell.Db
         {
             using (paksellContext context = new paksellContext())
             {
+                try
+                {
+                    // Set state for related entities to ensure EF only attaches them
+                    if (advertisement.Category != null)
+                    {
+                        context.Entry(advertisement.Category).State = EntityState.Unchanged;
+                    }
 
-                context.Entry(advertisement.Category).State = EntityState.Unchanged;
-                context.Add(advertisement);
-                context.SaveChanges();
-                return advertisement;
+                    if (advertisement.CityArea != null)
+                    {
+                        context.Entry(advertisement.CityArea).State = EntityState.Unchanged;
+                    }
+
+                    if (advertisement.PostedBy != null)
+                    {
+                        context.Entry(advertisement.PostedBy).State = EntityState.Unchanged;
+                    }
+
+                    // Add the advertisement with its features and images
+                    context.Advertisements.Add(advertisement);
+                    context.SaveChanges();
+
+                    // Reload the entity with all related data to return a complete object
+                    return GetAdvertisement(advertisement.Id);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    Console.WriteLine($"Error adding advertisement: {ex.Message}");
+                    return null;
+                }
             }
         }
         public Advertisement? UpdateAdvertisement(Advertisement advertisement)

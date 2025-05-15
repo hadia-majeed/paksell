@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using paksell;
 namespace PakSell.Models
 {
@@ -174,6 +175,7 @@ namespace PakSell.Models
             };
         }
 
+        // Updated ToEntity method for AdvertisementModel
         public static Advertisement ToEntity(this AdvertisementModel model)
         {
             Advertisement entity = new Advertisement
@@ -182,20 +184,40 @@ namespace PakSell.Models
                 Name = model.Name,
                 Price = model.Price,
                 Description = model.Description,
-                endsOn = model.endsOn,
-                startsOn = model.startsOn,
-                Category = model.Category?.ToEntity(),
-                CityArea = model.CityArea?.ToEntity(),
-                PostedBy = model.PostedBy?.ToEntity()
+                endsOn = model.EndsOn,
+                startsOn = model.StartsOn
             };
-            if (entity.AdvertisementImages != null)
+
+            // Handle Category (just set ID, no need to load the entire object)
+            if (model.Category != null && model.Category.Id > 0)
+            {
+                entity.Category = new AdvertisementCategory { Id = model.Category.Id };
+            }
+
+            // Handle CityArea (just set ID, no need to load the entire object)
+            if (model.CityArea != null && model.CityArea.Id > 0)
+            {
+                entity.CityArea = new CityArea { Id = model.CityArea.Id };
+            }
+
+            // Handle PostedBy (just set ID, no need to load the entire object)
+            if (model.PostedBy != null && model.PostedBy.Id > 0)
+            {
+                entity.PostedBy = new User { Id = model.PostedBy.Id.Value };
+                entity.PostedById = model.PostedBy.Id.Value;
+            }
+
+            // Handle collections (these still need full objects)
+            if (model.AdvertisementImages != null && model.AdvertisementImages.Any())
             {
                 entity.AdvertisementImages = model.AdvertisementImages.ToEntityList();
             }
-            if (entity.AdvertisementFeatures != null)
+
+            if (model.AdvertisementFeatures != null && model.AdvertisementFeatures.Any())
             {
                 entity.AdvertisementFeatures = model.AdvertisementFeatures.ToEntityList();
             }
+
             return entity;
         }
 
@@ -208,8 +230,8 @@ namespace PakSell.Models
                 model.Name = entity.Name;
                 model.Price = entity.Price;
                 model.Description = entity.Description;
-                model.endsOn = entity.endsOn;
-                model.startsOn = entity.startsOn;
+                model.EndsOn = entity.endsOn;
+                model.StartsOn = entity.startsOn;
                 model.Category = entity.Category?.ToModel();
                 model.CityArea = entity.CityArea?.ToModel();
                 model.PostedBy = entity.PostedBy?.ToModel();
@@ -229,6 +251,31 @@ namespace PakSell.Models
                 throw;
             }
         }
+        public static AdvertisementModel ToModel(this AdvertisementBindingModel entity)
+        {
+            AdvertisementModel model = new AdvertisementModel();
+            model.Id = entity.Id;
+            model.Name = entity.Name;
+            model.Price = entity.Price;
+            model.Description = entity.Description;
+            //model.EndsOn = entity.EndsOn;
+            //model.StartsOn = (DateOnly)entity.StartsOn;
+            model.AdvertisementFeatures = entity.AdvertisementFeatures.Select(a => new AdvertisementFeatureModel()
+            {
+                Name = a
+            }
+            ).ToList();
+            model.AdvertisementImages = entity.AdvertisementImages.Select(a => new AdvertisementImageModel()
+            {
+                ImagePath = a
+            }
+           ).ToList();
+
+            return model;
+
+        }
+        
+
         public static List<AdvertisementModel> ToModelList(this ICollection<Advertisement> entitiesCollection)
         {
             List<AdvertisementModel> modelsList = new List<AdvertisementModel>();
@@ -269,7 +316,7 @@ namespace PakSell.Models
                 City = entity.City,
                 UserImage = entity.UserImage,
                 BirthDate = entity.BirthDate,
-                //Advertisements = entity.Advertisements.ToModelList()
+              
 
             };
         }
@@ -277,7 +324,7 @@ namespace PakSell.Models
         {
             return new User
             {
-                Id = model.Id,
+                Id = model.Id.Value,
                 Name = model.Name,
                 Email = model.Email,
                 LoginId = model.LoginId,
@@ -291,29 +338,9 @@ namespace PakSell.Models
             };
         }
 
-        public static UserModel ToUserAdvertisementModel(this User entity)
-        {
-
-            return new UserModel
-
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                Email = entity.Email,
-                LoginId = entity.LoginId,
-                Password = entity.Password,
-                SecurityAnswer = entity.SecurityAnswer,
-                SecurityQuestion = entity.SecurityQuestion,
-                PhoneNumber = entity.PhoneNumber,
-                City = entity.City,
-                UserImage = entity.UserImage,
-                BirthDate = entity.BirthDate,
-                Advertisements = entity.Advertisements.ToModelList()
-
-            };
 
 
 
-        }
+        
     }
 }

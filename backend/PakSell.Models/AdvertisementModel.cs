@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace PakSell.Models
 {
@@ -14,7 +12,6 @@ namespace PakSell.Models
         {
             AdvertisementImages = new List<AdvertisementImageModel>();
             AdvertisementFeatures = new List<AdvertisementFeatureModel>();
-
         }
 
         public int Id { get; set; }
@@ -24,12 +21,35 @@ namespace PakSell.Models
         public UserModel? PostedBy { get; set; }
         public int Price { get; set; }
 
-        public DateOnly startsOn { get; set; }
-        public DateOnly endsOn { get; set; }
+        // Use JsonPropertyName to match the property names in your model
+        [JsonPropertyName("startsOn")]
+        public DateOnly StartsOn { get; set; }
+
+        [JsonPropertyName("endsOn")]
+        public DateOnly EndsOn { get; set; }
+
         public CityAreaModel? CityArea { get; set; }
         public List<AdvertisementFeatureModel> AdvertisementFeatures { get; set; }
         public List<AdvertisementImageModel> AdvertisementImages { get; set; }
         public AdvertisementCategoryModel? Category { get; set; }
+    }
 
+
+    public class AdvertisementBindingModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+
+        public DateTime EndsOn { get; set; }
+        public DateTime StartsOn { get; set; }
+        public List<string> AdvertisementFeatures { get; set; }
+        public List<string> AdvertisementImages { get; set; }
+        public int Price { get; set; }
+
+        public int PostedBy { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }
+

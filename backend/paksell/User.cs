@@ -16,17 +16,17 @@ namespace paksell
         public string? Email {  get; set; }
         [Column(TypeName = "varchar(50)")]
         public string? LoginId { get; set; }
-        [Column(TypeName = "varchar(50)")]
+        [Column(TypeName = "varchar(max)")]
         public string? Password { get; set; }
 
         public string City { get; set; }
         [Column(TypeName = "varchar(11)")]
         public string? PhoneNumber { get; set; }
-        [Column(TypeName = "varchar(50)")]
+        [Column(TypeName = "varchar(max)")]
         public string? UserImage { get; set; }
 
         public DateTime? BirthDate { get; set; }
-        public ICollection<Advertisement>? Advertisements { get; set; }
+      
 
         [Column(TypeName = "varchar(100)")]
         public string? SecurityQuestion { get; set; }

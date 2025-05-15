@@ -18,11 +18,11 @@ namespace paksell.Db
                 return context.User.ToList();
             }
         }
-        public User? GetUser(int id)
+        public User? GetUser(string  id)
         {
             using (paksellContext context = new paksellContext())
             {
-                return context.User.FirstOrDefault(a => a.Id == id);
+                return context.User.FirstOrDefault(a => a.LoginId == id);
 
             }
 
@@ -31,15 +31,23 @@ namespace paksell.Db
         {
             using (paksellContext context = new paksellContext())
             {
-                return (from u in context.User
-                        where u.LoginId == loginId && u.Password == password
+                var user =  (from u in context.User
+                        where u.LoginId == loginId 
                         select u).FirstOrDefault();
+
+                if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    return user;
+                }
             }
+            return null;
         }
         public User? AddUser(User user)
         {
             using (paksellContext context = new paksellContext())
             {
+                
+               
                 context.Add(user);
                 context.SaveChanges();
                 return user;

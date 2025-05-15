@@ -1,9 +1,50 @@
-# Ignore Visual Studio folders
+# Visual Studio / VSCode
 .vs/
-backend/.vs/
-bin/
-obj/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+**/bin/
+**/obj/
+
+# Rider
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
 *.log
-*.cache
+
+# Migrations (if you want to ignore generated migration files)
+backend/paksell/Migrations/*.Designer.cs
+backend/paksell/Migrations/*.cs
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# npm / frontend dependencies (if any frontend node_modules)
+frontend/node_modules/
+
+# dotenv environment files
+.env
+.env.local
+.env.*.local
+
+# Others
+*.vsix
+*.pdb
+
+# Rider project files
+.idea/
+
