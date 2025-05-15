@@ -1,0 +1,60 @@
+<style>
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .dropdown img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+  .dropdown-menu {
+    min-width: 150px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-dark fixed-top">
+  <div class="container-fluid">
+    <h4 style="color: rgb(216, 226, 235); margin: 0;">Welcome to Paksell!</h4>
+    <div class="ms-auto">
+      <div class="dropdown">
+        <!-- Dynamic Image Binding -->
+        <img [src]="userImage" alt="User Image"class="rounded-circle me-3" width="10"  height="30" data-bs-toggle="dropdown">
+        
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" [routerLink]="['/user-profile']">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" (click)="logout()" href="#">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+<app-navbar></app-navbar>
+<!-- Post Ad Form Modal -->
+<div *ngIf="showPostForm" class="modal fade show d-block" tabindex="-1" role="dialog" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Post New Advertisement</h5>
+        <button type="button" class="btn-close" (click)="togglePostForm()"></button>
+      </div>
+      <div class="modal-body">
+        <app-post-ad-form></app-post-ad-form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <app-carousel></app-carousel>
+<app-search></app-search>
+<app-categories></app-categories> -->
+
+
+
+
+  

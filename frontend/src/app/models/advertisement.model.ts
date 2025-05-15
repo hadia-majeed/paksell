@@ -1,4 +1,4 @@
-import { Url } from "url";
+
 
 export interface Advertisement {
     id: number;
@@ -6,10 +6,10 @@ export interface Advertisement {
     price: number;
     description: string;
     postedBy: User;
-    imageUrl:   URL;
+    imageUrl: string;
     startsOn: string; // ISO date string
     endsOn: string;   // ISO date string
-    cityArea: CityArea;
+    cityArea: string;
     AdvertisementImages: Image[];
     AdvertisementFeatures: Features[];
     category: string;

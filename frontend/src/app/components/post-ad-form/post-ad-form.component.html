@@ -1,1 +1,65 @@
-<p>post-ad-form works!</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0">{{ selectedAd ? 'Edit Advertisement' : 'Post a New Advertisement' }}</h3>
+        </div>
+        <div class="card-body">
+          <!-- Success message -->
+          <div *ngIf="submitSuccess" class="alert alert-success">
+            Advertisement posted successfully! Redirecting...
+          </div>
+
+          <!-- Error message -->
+          <div *ngIf="submitError" class="alert alert-danger">
+            {{ submitError }}
+          </div>
+          
+          <form (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="title" [(ngModel)]="adForm.title" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <select class="form-select" id="category" name="categoryId" [(ngModel)]="adForm.category" required>
+                <option value="">Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price ($)</label>
+              <input type="number" class="form-control" id="price" name="price" [(ngModel)]="adForm.price" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="5" name="description" [(ngModel)]="adForm.description" required></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="imageUrl" class="form-label">Image URL</label>
+              <input type="text" class="form-control" id="imageUrl" name="imageUrl" [(ngModel)]="adForm.imageUrl" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="cityArea" class="form-label">City/Area</label>
+              <input type="text" class="form-control" id="cityArea" name="cityArea" [(ngModel)]="adForm.cityArea" required>
+            </div>
+
+          
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success" [disabled]="isSubmitting">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                {{ isSubmitting ? 'Posting...' : (selectedAd ? 'Update Advertisement' : 'Post Advertisement') }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

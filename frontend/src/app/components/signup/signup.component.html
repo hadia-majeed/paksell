@@ -9,42 +9,50 @@
                 <form>
                     <div class="mb-3">
                         <label for="Name" class="form-label">Name</label>
-                        <input type="Name"[(ngModel)]="signupData.name" class="form-control" id="Name" placeholder="Enter your Name">
+                        <input type="Name" [(ngModel)]="signupData.name" class="form-control" name="name" placeholder="Enter your Name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email"[(ngModel)]="signupData.email" class="form-control" id="email" placeholder="Enter your email">
+                        <input type="email" [(ngModel)]="signupData.email" class="form-control" name="email" placeholder="Enter your email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password"[(ngModel)]="signupData.password" class="form-control" id="password" placeholder="Enter your password">
+                        <input type="password" [(ngModel)]="signupData.password" class="form-control" name="password" placeholder="Enter your password">
                     </div>
                     
                     <div class="mb-3">
                         <label for="LoginID" class="form-label">Login ID</label>
-                        <input type="LoginID"[(ngModel)]="signupData.loginId" class="form-control" id="LoginID" placeholder="Enter your Login ID">
+                        <input type="LoginID" [(ngModel)]="signupData.loginId" class="form-control" name="LoginID" placeholder="Enter your Login ID">
                     </div>
                     
                     <div class="mb-3">
                         <label for="Phone" class="form-label">Phone</label>
-                        <input type="Phone"[(ngModel)]="signupData.phoneNumber" class="form-control" id="Phone" placeholder="Enter your Phone">
+                        <input type="Phone" [(ngModel)]="signupData.phoneNumber" class="form-control" name="Phone" placeholder="Enter your Phone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cityArea" class="form-label">CityArea</label>
+                        <input type="cityArea" [(ngModel)]="signupData.city" class="form-control" name="cityArea" placeholder="Enter your cityArea">
                     </div>
                     <div class="mb-3">
                         <label for="SecurityQuestion" class="form-label">Security Question</label>
-                        <input type="SecurityQuestion"[(ngModel)]="signupData.securityQuestion" class="form-control" id="SecurityQuestion" placeholder="Enter your Security Question">
+                        <input type="SecurityQuestion" [(ngModel)]="signupData.securityQuestion" class="form-control" name="SecurityQuestion" placeholder="Enter your Security Question">
                     </div>
                     <div class="mb-3">
                         <label for="SecurityAnswer" class="form-label">Security Answer</label>
-                        <input type="SecurityAnswer"[(ngModel)]="signupData.securityAnswer" class="form-control" id="SecurityAnswer" placeholder="Enter your Security Answer">
+                        <input type="SecurityAnswer" [(ngModel)]="signupData.securityAnswer" class="form-control" name="SecurityAnswer" placeholder="Enter your Security Answer">
                     </div>
                     <div class="mb-3">
                         <label for="Birth Date" class="form-label">Birth Date</label>
-                        <input type="date"[(ngModel)]="signupData.birthDate" class="form-control" id="date" placeholder="Enter your Birth Date">
+                        <input type="date" [(ngModel)]="signupData.birthDate" class="form-control" name="date" placeholder="Enter your Birth Date">
                     </div>
                     <div class="mb-3">
                         <label for="yourImage" class="form-label">Your Image</label>
-                        <input type="file"[(ngModel)]="signupData.userImage" class="form-control" id="yourImage" accept="image/*">
+                        <input type="file" class="form-control" name="yourImage" accept="image/*" (change)="onFileSelected($event)">
                     </div>
+                    
+                    <!-- Image Preview -->
+                    <img *ngIf="previewImage" [src]="previewImage" alt="Selected Image" style="max-width: 150px; display: block; margin-top: 10px;">
+
 
                     <button type="button" (click)="signUp()"class="btn btn-success w-100" data-bs-dismiss="modal">Sign Up</button>
                 </form>

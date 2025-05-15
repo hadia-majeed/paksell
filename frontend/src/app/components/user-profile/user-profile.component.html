@@ -1,1 +1,178 @@
-<p>user-profile works!</p>
+<app-logged-page></app-logged-page>
+
+<style>
+ /* General Styles */
+body {
+    background-color: #e8f5e9;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1100px;
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.card-header {
+    background: #2E7D32;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Profile Section */
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-details {
+    padding-left: 20px;
+    background: #f1f8e9;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.btn {
+    margin: 5px;
+    width: 100px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.btn-success {
+    background: #388E3C;
+    border: none;
+}
+
+.btn-primary {
+    background: #1976D2;
+    border: none;
+}
+
+/* Advertisement Cards */
+.ad-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background: white;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ad-card img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.ad-details {
+    flex: 1;
+}
+
+.ad-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ad-actions .btn {
+    width: 80px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+    .user-details {
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .ad-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .ad-card img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+}
+
+</style>
+
+<div class="container mt-5 pt-3">
+  <div class="row">
+      <div class="col-md-8 mx-auto">
+          <div class="card shadow">
+              <div class="card-header">User Dashboard</div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-4 text-center">
+                          <img [src]="userImage" alt="User Profile" class="profile-img mb-3">
+                          <h5>{{ user?.name || 'User' }}</h5>
+                          <button class='btn btn-success'>Edit Info</button>
+                          <button class='btn btn-primary'>Log Out</button>
+                      </div>
+                      <div class="col-md-8">
+                          <div class="user-details">
+                              <h4>Profile Information</h4>
+                              <hr>
+                              <div class="mb-3">
+                                  <strong>Email: </strong> {{ user?.email || 'Not available' }}
+                              </div>
+                              <div class="mb-3">
+                                  <strong>City: </strong> {{ user?.city || 'Not available' }}
+                              </div>
+                              <div class="mb-3">
+                                  <strong>Birth Date: </strong> {{ user?.birthDate || 'Not available' }}
+                              </div>
+                              <div class="mb-3">
+                                  <strong>Phone Number: </strong> {{ user?.phoneNumber || 'Not available' }}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="mt-4">
+                      <h4>Posted Advertisements</h4>
+                      <hr>
+                      <!-- <div class="ad-card" *ngFor="let ad of advertisements">
+                          <img [src]="ad.image" alt="Ad Image">
+                          <div class="ad-details">
+                              <div class="ad-title">{{ ad.title }}</div>
+                              <p>{{ ad.description }}</p>
+                              <strong>Price:</strong> {{ ad.price }}<br>
+                              <strong>City:</strong> {{ ad.city }}
+                          </div> -->
+                          <div class="ad-actions">
+                              <button class='btn btn-danger'>Delete</button>
+                              <button class='btn btn-success'>Edit</button>
+                              <button class='btn btn-primary'>View More</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+

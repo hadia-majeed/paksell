@@ -21,3 +21,10 @@
     font-size: x-large;
     
 }
+.navbar {
+  padding: 10px 20px;
+}
+
+#post-button {
+  color: white;
+}

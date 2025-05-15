@@ -2,15 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
-import { Advertisement } from '../../models/advertisement.model';
-
-interface Product {
-  id: number;
-  name: string;
-  imageUrl: URL;
-  advertisementCount: number;
-  advertisements: any[];
-}
 
 @Component({
   selector: 'app-categories',
@@ -95,4 +86,5 @@ export class CategoriesComponent implements OnInit {
         console.error('Error fetching advertisement:', error);
       }
     );    
-  }}
+  }
+}

@@ -5,24 +5,25 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { SearchComponent } from './components/search/search.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { LoginComponent } from "./components/login/login.component";
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    NavbarComponent,
-    CarouselComponent,
-    SearchComponent,
-    LoginComponent,
-    CategoriesComponent
+    // NavbarComponent,
+    // CarouselComponent,
+    // SearchComponent,
+    // LoginComponent,
+    // CategoriesComponent,
+    RouterModule
   ],
   template: `
-    <app-login></app-login>
+    <!-- <app-login></app-login>
     <app-navbar></app-navbar>
     <app-carousel></app-carousel>
     <app-search></app-search>
-    <app-categories></app-categories>
+    <app-categories></app-categories> -->
     <router-outlet></router-outlet>
   `,
   styleUrls: ['./app.component.css']
