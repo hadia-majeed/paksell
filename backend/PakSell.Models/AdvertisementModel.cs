@@ -27,7 +27,7 @@ namespace PakSell.Models
 
         [JsonPropertyName("endsOn")]
         public DateOnly EndsOn { get; set; }
-
+        public int CityAreaId { get; set; }
         public CityAreaModel? CityArea { get; set; }
         public List<AdvertisementFeatureModel> AdvertisementFeatures { get; set; }
         public List<AdvertisementImageModel> AdvertisementImages { get; set; }
@@ -40,7 +40,7 @@ namespace PakSell.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
-
+        public int CityAreaId { get; set; }
         public DateTime EndsOn { get; set; }
         public DateTime StartsOn { get; set; }
         public List<string> AdvertisementFeatures { get; set; }

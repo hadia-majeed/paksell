@@ -80,54 +80,63 @@ namespace PakSell.RestApis.Controllers
                     return BadRequest("Advertisement model cannot be null");
                 }
 
-                // Check for standard claim types first
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                // If standard claim not found, check for custom claim
-                if (string.IsNullOrEmpty(userId))
+                // Get the user ID from the claims
+                var userIdClaim = User.FindFirst("User_Id");
+                if (userIdClaim == null)
                 {
-                    userId = User.FindFirstValue("UserId"); // Try common variations
+                    return Unauthorized("User ID not found in token");
                 }
 
-                if (string.IsNullOrEmpty(userId))
+                if (!int.TryParse(userIdClaim.Value, out int userId))
                 {
-                    userId = User.FindFirstValue("sub"); // JWT standard subject claim
+                    return BadRequest($"Invalid user ID format: {userIdClaim.Value}");
                 }
 
-                // As a last resort, try to find any claim that might contain a user ID
-                if (string.IsNullOrEmpty(userId))
+                // Create a new advertisement entity
+                var advertisement = new Advertisement
                 {
-                    var userIdClaim = User.Claims.FirstOrDefault(c =>
-                        c.Type.Contains("id", StringComparison.OrdinalIgnoreCase) ||
-                        c.Type.Contains("user", StringComparison.OrdinalIgnoreCase));
+                    Name = model.Name,
+                    Description = model.Description,
+                    Price = model.Price,
+                    PostedById = userId,
+                    startsOn = DateOnly.FromDateTime(model.StartsOn),
+                    endsOn = DateOnly.FromDateTime(model.EndsOn),
 
-                    if (userIdClaim != null)
+                    // Create features collection
+                    AdvertisementFeatures = model.AdvertisementFeatures?.Select(feature => new AdvertisementFeature
                     {
-                        userId = userIdClaim.Value;
-                    }
-                }
+                        Name = feature,
+                        value = feature  // You may need to adjust this based on your requirements
+                    }).ToList() ?? new List<AdvertisementFeature>(),
 
-                // If still no user ID found, return unauthorized
-                if (string.IsNullOrEmpty(userId))
+                    // Create images collection
+                    AdvertisementImages = model.AdvertisementImages?.Select((imagePath, index) => new AdvertisementImage
+                    {
+                        ImagePath = imagePath,
+                        Rank = index  // Use the index as the rank to maintain order
+                    }).ToList() ?? new List<AdvertisementImage>()
+                };
+
+                // Set category reference
+                if (model.CategoryId > 0)
                 {
-                    return Unauthorized("User ID not found in token. Please verify token contains the required claims.");
+                    advertisement.Category = new AdvertisementCategory { Id = model.CategoryId };
                 }
 
-                // Try to parse the user ID as an integer
-                if (!int.TryParse(userId, out int parsedUserId))
+                if (model.CityAreaId > 0)
                 {
-                    return BadRequest($"Invalid user ID format: {userId}");
+                    advertisement.CityArea = new CityArea { Id = model.CityAreaId };
                 }
-                var bindingmodel = model.ToModel();
-                // Add the advertisement
-                Advertisement? entity = new AdvertisementHandler().AddAdvertisement(bindingmodel.ToEntity());
 
-                if (entity == null)
+                // Add the advertisement with all its related entities
+                var addedEntity = new AdvertisementHandler().AddAdvertisement(advertisement);
+
+                if (addedEntity == null)
                 {
                     return StatusCode(500, "Failed to create advertisement");
                 }
 
-                return Created($"{Request.Path}/{entity.Id}", entity.ToModel());
+                return Created($"{Request.Path}/{addedEntity.Id}", addedEntity.ToModel());
             }
             catch (Exception ex)
             {

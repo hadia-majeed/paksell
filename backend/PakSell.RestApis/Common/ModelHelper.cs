@@ -258,23 +258,24 @@ namespace PakSell.Models
             model.Name = entity.Name;
             model.Price = entity.Price;
             model.Description = entity.Description;
-            //model.EndsOn = entity.EndsOn;
-            //model.StartsOn = (DateOnly)entity.StartsOn;
-            model.AdvertisementFeatures = entity.AdvertisementFeatures.Select(a => new AdvertisementFeatureModel()
+            model.EndsOn = DateOnly.FromDateTime(entity.EndsOn);
+            model.StartsOn = DateOnly.FromDateTime(entity.StartsOn);
+            model.Category = entity.CategoryId > 0 ? new AdvertisementCategoryModel { Id = entity.CategoryId } : null;
+            model.PostedBy = entity.PostedBy > 0 ? new UserModel { Id = entity.PostedBy } : null;
+
+            model.AdvertisementFeatures = entity.AdvertisementFeatures?.Select(a => new AdvertisementFeatureModel()
             {
                 Name = a
-            }
-            ).ToList();
-            model.AdvertisementImages = entity.AdvertisementImages.Select(a => new AdvertisementImageModel()
+            }).ToList() ?? new List<AdvertisementFeatureModel>();
+
+            model.AdvertisementImages = entity.AdvertisementImages?.Select(a => new AdvertisementImageModel()
             {
                 ImagePath = a
-            }
-           ).ToList();
+            }).ToList() ?? new List<AdvertisementImageModel>();
 
             return model;
-
         }
-        
+
 
         public static List<AdvertisementModel> ToModelList(this ICollection<Advertisement> entitiesCollection)
         {

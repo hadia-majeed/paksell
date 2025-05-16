@@ -57,39 +57,53 @@ namespace paksell.Db
                     .FirstOrDefault(a => a.Id == id);
             }
         }
+        // Make sure this method correctly sets up entity relationships
         public Advertisement? AddAdvertisement(Advertisement advertisement)
         {
             using (paksellContext context = new paksellContext())
             {
                 try
                 {
-                    // Set state for related entities to ensure EF only attaches them
-                    if (advertisement.Category != null)
+                    // Set state for related entities
+                    if (advertisement.Category != null && advertisement.Category.Id > 0)
                     {
-                        context.Entry(advertisement.Category).State = EntityState.Unchanged;
+                        var category = context.advertisementCategories.Find(advertisement.Category.Id);
+                        if (category != null)
+                        {
+                            advertisement.Category = category;
+                        }
                     }
 
-                    if (advertisement.CityArea != null)
+                    if (advertisement.CityArea != null && advertisement.CityArea.Id > 0)
                     {
-                        context.Entry(advertisement.CityArea).State = EntityState.Unchanged;
+                        var cityArea = context.CityAreas.Find(advertisement.CityArea.Id);
+                        if (cityArea != null)
+                        {
+                            advertisement.CityArea = cityArea;
+                        }
                     }
 
-                    if (advertisement.PostedBy != null)
+                    if (advertisement.PostedById > 0)
                     {
-                        context.Entry(advertisement.PostedBy).State = EntityState.Unchanged;
+                        var user = context.User.Find(advertisement.PostedById);
+                        if (user != null)
+                        {
+                            advertisement.PostedBy = user;
+                        }
                     }
+                    
 
-                    // Add the advertisement with its features and images
                     context.Advertisements.Add(advertisement);
                     context.SaveChanges();
-
-                    // Reload the entity with all related data to return a complete object
                     return GetAdvertisement(advertisement.Id);
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception
                     Console.WriteLine($"Error adding advertisement: {ex.Message}");
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                    }
                     return null;
                 }
             }
